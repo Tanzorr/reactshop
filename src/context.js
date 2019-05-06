@@ -11,8 +11,11 @@ const ProductContext = React.createContext();
           products: [],
           detailProduct:detailProduct,
           cart:[],
-          modalOpen:true,
+          modalOpen:false,
           modalProduct:detailProduct,
+          cartSubTotal:0,
+          cartTax:0,
+          cartTotal:0
       }
 
       componentDidMount(){
@@ -64,25 +67,31 @@ const ProductContext = React.createContext();
       openModal = id=>{
           const product = this.getItem(id);
           this.setState(()=>{
-              return {modalProduct: product}
+              return {modalProduct: product, modalOpen: true}
           })
       }
 
-      // tester =()=>{
-      //     console.log('State products :', this.state.products[0].inCart);
-      //     console.log('Data products :', storeProducts[0].inCart);
-      //
-      //     const tempProducts = [...this.state.products];
-      //     tempProducts[0].inCart = true
-      //
-      //     this.setState(()=>{
-      //         return {products: tempProducts}
-      //     },()=>{
-      //         console.log('State products :', this.state.products[0].inCart);
-      //         console.log('Data products :', storeProducts[0].inCart);
-      //     })
-      //
-      // }
+      closeModal=()=>{
+          this.setState(()=>{
+              return {modalOpen:false}
+          })
+      }
+
+     increment = (id)=>{
+          console.log('this is increment method');
+     }
+
+      decrement = (id)=>{
+          console.log('this is decrement method');
+      }
+
+      removeItem =(id)=>{
+          console.log('item removed');
+      }
+
+      cleaCart = ()=>{
+          console.log('cart was cleared')
+      }
 
     render(){
         return(
@@ -90,6 +99,13 @@ const ProductContext = React.createContext();
               ...this.state,
               hendleDetail: this.hendleDetail,
               addToCart: this.addToCart,
+              openModal:this.openModal,
+              closeModal:this.closeModal,
+              increment:this.increment,
+              decrement:this.decrement,
+              removeItem:this.removeItem,
+              clearCart:this.cleaCart
+
           }}>
 
               {this.props.children}
